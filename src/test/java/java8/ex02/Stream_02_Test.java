@@ -18,14 +18,15 @@ import static org.junit.Assert.*;
  */
 public class Stream_02_Test {
 
-    @Test
-    public void test_map() throws Exception {
+	@Test
+	public void test_map() throws Exception {
 
-        List<Order> orders = new Data().getOrders();
+		List<Order> orders = new Data().getOrders();
 
-        // Trouver la liste des clients ayant déjà passés une commande
-        List<Customer> result = null;
-
-        assertThat(result, hasSize(2));
-    }
+		// Trouver la liste des clients ayant déjà passés une commande
+		List<Customer> result = orders.stream().filter(t -> t.getPizzas().size() > 0).map(t -> t.getCustomer()).distinct()
+				.collect(Collectors.toList());
+		System.out.println(result);
+		assertThat(result, hasSize(2));
+	}
 }
